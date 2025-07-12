@@ -9,22 +9,16 @@
   <style> body { font-family: 'Inter', sans-serif; } </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
-
-  <!-- Navbar -->
   <nav class="bg-white shadow px-6 py-4 flex justify-between items-center sticky top-0 z-50">
     <h1 class="text-2xl font-bold text-green-600">ReWear</h1>
     <a href="/main" class="text-sm text-green-600 hover:underline">← Back to Marketplace</a>
   </nav>
 
   <main class="max-w-5xl mx-auto py-10 px-6 grid md:grid-cols-2 gap-10">
-
-    <!-- Image -->
     <div>
       <img src="{{ url_for('static', filename='uploads/' ~ item.images.split(',')[0]) }}"
            class="rounded-xl w-full object-cover h-[400px]" alt="{{ item.title }}" />
     </div>
-
-    <!-- Details -->
     <div class="space-y-4">
       <h2 class="text-3xl font-bold">{{ item.title }}</h2>
       <p class="text-sm text-gray-500">Uploaded by: <span class="text-green-600">{{ item.uploader_name }}</span></p>
