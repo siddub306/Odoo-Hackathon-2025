@@ -1,18 +1,5 @@
 CREATE DATABASE rewear_hackathon;
 USE rewear_hackathon;
-CREATE TABLE User(user_id INT auto_increment primary key, name varchar(100) NOT NULL,
-	email VARCHAR(100) UNIQUE NOT NULL, password_hash varchar(255) NOT NULL, profile_picture TEXT, points INT DEFAULT 0, 
-    created_at timestamp default current_timestamp);
-CREATE TABLE Users(user_id INT auto_increment primary key, name varchar(100) NOT NULL,
-	email VARCHAR(100) UNIQUE NOT NULL, password_hash varchar(255) NOT NULL, profile_picture TEXT, points INT DEFAULT 0, 
-    created_at timestamp default current_timestamp);
-CREATE TABLE Item(item_id INT auto_increment primary key, user_id INT, title varchar(255), description TEXT, category varchar(100), type varchar(100), size varchar(20), item_condition varchar(100), tags TEXT, images TEXT, status ENUM('available', 'pending','swapped') default 'available', created_at timestamp default current_timestamp, FOREIGN KEY (user_id) REFERENCES Users(User_id) ON DELETE CASCADE);
-create table SwapReq(request_id int auto_increment primary key, from_user_id int, to_user_id int, item_id int, status ENUM('pending','accepted','rejected','cancelled') DEFAULT 'pending', request_type ENUM('swap','points') default 'swap', created_at timestamp default current_timestamp,
-foreign key (from_user_id) references Users(user_id) ON delete cascade,
-foreign key (to_user_id) references Item(item_id) ON delete cascade, foreign key (item_id) references Item(item_id) on delete cascade);	
-
-create table PointTrans(trans_id int auto_increment primary key, user_id int, points int not null, type ENUM('earn','spend') not null, description TEXT, related_item_id int, created_at timestamp default current_timestamp, foreign key (user_id) references Users(user_id) on delete cascade, foreign key (related_item_id) references Item(item_id) on delete set null);	
-
 show tables;
 select * from Users;
 select * from Item;
