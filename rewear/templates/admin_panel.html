@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel – ReWear</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800">
+
+  <nav class="bg-white px-6 py-4 shadow flex justify-between items-center">
+    <h1 class="text-xl font-bold text-green-600">ReWear Admin Panel</h1>
+    <a href="/logout" class="text-red-500 text-sm hover:underline">Logout</a>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-6 py-10">
+    <h2 class="text-2xl font-semibold mb-6">Pending Item Listings</h2>
+
+    {% if items %}
+    <table class="w-full bg-white rounded-lg shadow text-sm">
+      <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
+        <tr>
+          <th class="p-4 text-left">Image</th>
+          <th class="p-4 text-left">Title</th>
+          <th class="p-4 text-left">Uploader</th>
+          <th class="p-4 text-left">Category</th>
+          <th class="p-4 text-left">Points</th>
+          <th class="p-4 text-left">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr class="border-t hover:bg-gray-50">
+          <td class="p-4">
+            <img src="{{ url_for('static', filename='uploads/' ~ item.images.split(',')[0]) }}"
+                 alt="{{ item.title }}" class="w-16 h-16 object-cover rounded" />
+          </td>
+          <td class="p-4">{{ item.title }}</td>
+          <td class="p-4">{{ item.uploader_name }}</td>
+          <td class="p-4">{{ item.category }}</td>
+          <td class="p-4 font-semibold text-green-600">{{ item.point_value }}</td>
+          <td class="p-4">
+            <a href="/admin/approve/{{ item.item_id }}" class="bg-green-500 text-white px-3 py-1 rounded text-xs hover:bg-green-600">Approve</a>
+            <a href="/admin/reject/{{ item.item_id }}" class="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600 ml-2">Reject</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="text-gray-500">No items pending approval.</p>
+    {% endif %}
+  </main>
+
+</body>
+</html>
